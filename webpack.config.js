@@ -1,28 +1,40 @@
 const webpack = require('webpack')
-
-module.exports = {
+const conf = {
   context: `${__dirname}/src`,
-  entry: './js/index.js',
+  entry: './ts/index.ts',
   output: {
     path: `${__dirname}/docs/js`,
     filename: 'bundle.js'
   },
   module: {
-    loaders: [
+    rules: [
       {
-        test: /\.js$/,
-        loader: 'babel-loader',
-        exclude: /node_modules/,
-        query:{
-          presets: ['es2015']
-        }
+        test: /\.ts$/,
+        loader: 'ts-loader',
+        exclude: /node_modules/
       }
     ]
   },
   resolve: {
-    extensions: ['', '.js']
+    extensions: ['.ts']
   },
   plugins: [
-    new webpack.optimize.UglifyJsPlugin()
+    new webpack.optimize.UglifyJsPlugin({
+      compress: {
+        drop_console: true
+      }
+    })
   ]
-};
+}
+
+if (process.env.NODE_ENV !== 'production') {
+  conf.watch = true
+  conf.cache = true
+  conf.plugins = [
+    new webpack.LoaderOptionsPlugin({
+      debug: true
+    })
+  ]
+}
+
+module.exports = conf

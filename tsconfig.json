@@ -1,0 +1,17 @@
+{
+  "compilerOptions": {
+    "module": "es2015",
+    "allowSyntheticDefaultImports": true,
+    "noImplicitAny": true,
+    "removeComments": true,
+    "preserveConstEnums": true,
+    "sourceMap": true,
+    "target": "es5",
+    "moduleResolution": "node",
+    "lib": [
+      "dom",
+      "es2015",
+      "es2015.promise"
+    ]
+  }
+}
